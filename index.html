@@ -6,18 +6,24 @@
 <title>Cyber Fibonacci Lab - Open Day</title>
 <style>
   body { background: #0a0e14; color: #00ff88; font-family: 'Courier New', monospace; margin: 0; padding: 15px; text-align: center; }
-  h1 { font-size: 1.4rem; text-shadow: 0 0 10px #00ff88; margin-bottom: 5px; }
-  p.sub { color: #8892b0; font-size: 0.85rem; margin-top: 0; }
-  .card { background: #111622; border: 1px solid #00ff88; border-radius: 10px; padding: 15px; margin: 15px auto; max-width: 450px; box-shadow: 0 0 15px rgba(0,255,136,0.15); }
-  input[type="text"] { width: 90%; padding: 12px; background: #0a0e14; border: 1px solid #00ffff; color: #fff; font-size: 1.1rem; border-radius: 6px; text-transform: uppercase; text-align: center; margin-bottom: 10px; }
-  .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
+  h1 { font-size: 1.5rem; text-shadow: 0 0 10px #00ff88; margin-bottom: 5px; }
+  p.sub { color: #8892b0; font-size: 0.9rem; margin-top: 0; }
+  .card { background: #111622; border: 1px solid #00ff88; border-radius: 10px; padding: 15px; margin: 15px auto; max-width: 600px; box-shadow: 0 0 15px rgba(0,255,136,0.12); text-align: left; }
+  .card h2 { margin-top: 0; font-size: 1.15rem; color: #00ffff; text-align: center; }
+  pre { background: #05070a; color: #e6edf3; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; border: 1px solid #222; margin: 8px 0; }
   button { background: #00ff88; color: #0a0e14; border: none; padding: 10px 15px; font-weight: bold; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.95rem; }
+  button.copy-btn { width: 100%; background: #1f6feb; color: #fff; margin-bottom: 15px; }
+  button.copy-btn:active { background: #388bfd; }
   button.sec { background: #00ffff; }
   button.wa { background: #25D366; color: #fff; width: 100%; margin-top: 8px; }
-  .output { background: #05070a; padding: 12px; border-radius: 6px; border: 1px dashed #ff0055; color: #ff0055; font-size: 1.3rem; font-weight: bold; letter-spacing: 2px; word-break: break-all; min-height: 28px; }
-  canvas { background: #000; border-radius: 8px; border: 1px solid #333; max-width: 100%; margin-top: 10px; }
-  .slider-box { margin: 10px 0; font-size: 0.9rem; color: #00ffff; }
+  .center { text-align: center; }
+  input[type="text"] { width: 90%; padding: 12px; background: #0a0e14; border: 1px solid #00ffff; color: #fff; font-size: 1.1rem; border-radius: 6px; text-transform: uppercase; text-align: center; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+  .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
+  .output { background: #05070a; padding: 12px; border-radius: 6px; border: 1px dashed #ff0055; color: #ff0055; font-size: 1.3rem; font-weight: bold; letter-spacing: 2px; word-break: break-all; min-height: 28px; text-align: center; }
+  canvas { background: #000; border-radius: 8px; border: 1px solid #333; max-width: 100%; margin-top: 10px; display: block; margin-left: auto; margin-right: auto; }
+  .slider-box { margin: 10px 0; font-size: 0.9rem; color: #00ffff; text-align: center; }
   input[type="range"] { width: 85%; accent-color: #00ff88; }
+  a.ide-link { display: inline-block; background: #ff0055; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; margin: 10px 0; }
 </style>
 </head>
 <body>
@@ -25,21 +31,122 @@
   <h1>⚡ CYBER FIBONACCI LAB</h1>
   <p class="sub">Sequenza: 1, 1, 2, 3, 5, 8, 13, 21...</p>
 
-  <!-- SEZIONE 1: CRITTOGRAFIA -->
+  <!-- SEZIONE LABORATORIO PYTHON -->
   <div class="card">
-    <h2 style="margin-top:0; font-size:1.1rem; color:#00ffff;">🔐 Cifratore Segreto</h2>
+    <h2>💻 MISSIONE 1: CODICI PYTHON PER IL LAB</h2>
+    <div class="center">
+      <p style="font-size:0.9rem; color:#ccc;">1. Apri l'editor Python in una nuova scheda:<br>
+      <a class="ide-link" href="https://online-ide.com" target="_blank">🚀 APRI ONLINE-IDE TURTLE</a></p>
+    </div>
+
+    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 1: Radar Fibonacci (Modifica colori, spessore, gradi)</p>
+    <pre id="code1">import turtle
+
+schermo = turtle.Screen()
+schermo.bgcolor("black")
+t = turtle.Turtle()
+t.speed(0)
+
+# --- MODIFICA QUI: COLORI, SPESSORE E GRADI ---
+colori = ["cyan", "magenta", "yellow", "lime"]
+spessore = 3      # Prova 1, 5 o 10
+gradi = 90        # Prova 91, 89, 120 o 60
+passi = 15
+# ----------------------------------------------
+
+a = 1
+b = 1
+for i in range(passi):
+    t.pencolor(colori[i % len(colori)])
+    t.pensize(spessore)
+    for _ in range(90):
+        t.forward(a * 0.04)
+        t.left(gradi / 90)
+    prossimo = a + b
+    a = b
+    b = prossimo
+turtle.done()</pre>
+    <button class="copy-btn" onclick="copiaCodice('code1', this)">📋 COPIA CODICE 1 (RADAR)</button>
+
+    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 2: La Galassia Aurea (137.5°)</p>
+    <pre id="code2">import turtle
+
+schermo = turtle.Screen()
+schermo.bgcolor("black")
+turtle.tracer(0)
+
+t = turtle.Turtle()
+t.hideturtle()
+t.penup()
+
+colori = ["#00FFCC", "#FF007F", "#FFFF00", "#00BFFF", "#7FFF00", "#FF8C00"]
+angolo_aureo = 137.508
+
+for i in range(450):
+    t.pencolor(colori[i % len(colori)])
+    t.dot(4 + (i * 0.015))
+    t.forward(i * 0.45)
+    t.left(angolo_aureo)
+
+turtle.update()
+turtle.done()</pre>
+    <button class="copy-btn" onclick="copiaCodice('code2', this)">📋 COPIA CODICE 2 (GALASSIA)</button>
+
+    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 3: Cifratore Cyber (Crea tu il decifratore!)</p>
+    <pre id="code3">import turtle
+
+schermo = turtle.Screen()
+schermo.bgcolor("black")
+t = turtle.Turtle()
+t.speed(5)
+
+# --- MODIFICA QUI LA PAROLA SEGRETA ---
+messaggio = "MAMMA"
+# --------------------------------------
+
+alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+colori = ["#00FF00", "#00FFFF", "#FF0055", "#FFFF00"]
+a = 1
+b = 1
+testo_cifrato = ""
+
+for i in range(len(messaggio)):
+    lettera = messaggio[i]
+    if lettera in alfabeto:
+        posizione = alfabeto.index(lettera)
+        nuova_pos = (posizione + a) % 26
+        nuova_lettera = alfabeto[nuova_pos]
+    else:
+        nuova_lettera = lettera
+    testo_cifrato = testo_cifrato + nuova_lettera
+    t.pencolor(colori[i % 4])
+    t.pensize(3)
+    t.forward(a * 5)
+    t.left(a * 35)
+    prossimo = a + b
+    a = b
+    b = prossimo
+
+t.hideturtle()
+print("ORIGINALE: " + messaggio)
+print("CIFRATO:   " + testo_cifrato)</pre>
+    <button class="copy-btn" onclick="copiaCodice('code3', this)">📋 COPIA CODICE 3 (HACKING)</button>
+  </div>
+
+  <!-- SEZIONE 2: CRITTOGRAFIA WEB -->
+  <div class="card center">
+    <h2>🔐 APP CIFRATORE SEGRETO (DA CASA)</h2>
     <input type="text" id="testo" placeholder="SCRIVI QUI IL MESSAGGIO..." oninput="elabora(1)">
     <div class="btn-group">
       <button onclick="elabora(1)">🔒 CIFRA (+)</button>
       <button class="sec" onclick="elabora(-1)">🔓 DECIFRA (-)</button>
     </div>
     <div class="output" id="risultato">...</div>
-    <button class="wa" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
   </div>
 
-  <!-- SEZIONE 2: GRAFICA AUREA -->
-  <div class="card">
-    <h2 style="margin-top:0; font-size:1.1rem; color:#00ffff;">🌌 Generatore Galassia</h2>
+  <!-- SEZIONE 3: GRAFICA AUREA WEB -->
+  <div class="card center">
+    <h2>🌌 GENERATORE GALASSIA (DA CASA)</h2>
     <div class="slider-box">
       Angolo: <span id="valAngolo">137.5</span>°<br>
       <input type="range" id="angolo" min="60" max="180" step="0.1" value="137.5" oninput="disegna()">
@@ -53,6 +160,21 @@
   </div>
 
 <script>
+  function copiaCodice(idElemento, btn) {
+    let testo = document.getElementById(idElemento).innerText;
+    navigator.clipboard.writeText(testo).then(() => {
+      let testoOriginale = btn.innerText;
+      btn.innerText = "✅ COPIATO! ORA INCOLLA SU ONLINE-IDE";
+      btn.style.background = "#00ff88";
+      btn.style.color = "#0a0e14";
+      setTimeout(() => {
+        btn.innerText = testoOriginale;
+        btn.style.background = "#1f6feb";
+        btn.style.color = "#fff";
+      }, 2500);
+    });
+  }
+
   const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   function elabora(direzione) {
@@ -76,9 +198,9 @@
   function condividiWA() {
     let res = document.getElementById("risultato").innerText;
     if (res === "...") return;
-    let url = "https://github.io";
-    let testoWA = "🕵️‍♂️ Ho cifrato un messaggio con l'algoritmo di Fibonacci all'Open Day!\n\nCodice: *" + res + "*\n\nProva a decifrarlo qui: " + url;
-    window.open("https://wa.me" + encodeURIComponent(testoWA), "_blank");
+    let url = window.location.href;
+    let testoWA = `🕵️‍♂️ Ho cifrato un messaggio con l'algoritmo di Fibonacci all'Open Day!\n\nCodice: *${res}*\n\nProva a decifrarlo qui: ${url}`;
+    window.open("https://whatsapp.com" + encodeURIComponent(testoWA), "_blank");
   }
 
   function disegna() {

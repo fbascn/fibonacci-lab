@@ -6,26 +6,18 @@
 <title>Cyber Fibonacci Lab - Open Day</title>
 <style>
   body { background: #0a0e14; color: #00ff88; font-family: 'Courier New', monospace; margin: 0; padding: 15px; text-align: center; }
-  h1 { font-size: 1.5rem; text-shadow: 0 0 10px #00ff88; margin-bottom: 5px; }
-  p.sub { color: #8892b0; font-size: 0.9rem; margin-top: 0; }
-  .card { background: #111622; border: 1px solid #00ff88; border-radius: 10px; padding: 15px; margin: 15px auto; max-width: 620px; box-shadow: 0 0 15px rgba(0,255,136,0.12); text-align: left; }
-  .card h2 { margin-top: 0; font-size: 1.15rem; color: #00ffff; text-align: center; }
-  pre { background: #05070a; color: #e6edf3; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; border: 1px solid #222; margin: 8px 0; white-space: pre; }
-  button { background: #00ff88; color: #0a0e14; border: none; padding: 10px 15px; font-weight: bold; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.95rem; }
-  button.copy-btn { width: 100%; background: #1f6feb; color: #fff; margin-bottom: 18px; }
-  button.copy-btn:active { background: #388bfd; }
-  button.sec { background: #00ffff; color: #0a0e14; }
-  button.active-mode { outline: 3px solid #ffffff; }
-  button.wa { background: #25D366; color: #fff; width: 100%; margin-top: 8px; }
-  .center { text-align: center; }
-  input[type="text"] { width: 90%; padding: 12px; background: #0a0e14; border: 1px solid #00ffff; color: #fff; font-size: 1.1rem; border-radius: 6px; text-transform: uppercase; text-align: center; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+  h1 { font-size: 1.4rem; text-shadow: 0 0 10px #00ff88; margin-bottom: 5px; }
+  p.sub { color: #8892b0; font-size: 0.85rem; margin-top: 0; }
+  .card { background: #111622; border: 1px solid #00ff88; border-radius: 10px; padding: 15px; margin: 15px auto; max-width: 450px; box-shadow: 0 0 15px rgba(0,255,136,0.15); }
+  input[type="text"] { width: 90%; padding: 12px; background: #0a0e14; border: 1px solid #00ffff; color: #fff; font-size: 1.1rem; border-radius: 6px; text-transform: uppercase; text-align: center; margin-bottom: 10px; }
   .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
-  .output { background: #05070a; padding: 12px; border-radius: 6px; border: 1px dashed #ff0055; color: #ff0055; font-size: 1.3rem; font-weight: bold; letter-spacing: 2px; word-break: break-all; min-height: 28px; text-align: center; }
-  canvas { background: #000; border-radius: 8px; border: 1px solid #333; max-width: 100%; margin-top: 10px; display: block; margin-left: auto; margin-right: auto; }
-  .slider-box { margin: 10px 0; font-size: 0.9rem; color: #00ffff; text-align: center; }
+  button { background: #00ff88; color: #0a0e14; border: none; padding: 10px 15px; font-weight: bold; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.95rem; }
+  button.sec { background: #00ffff; }
+  button.wa { background: #25D366; color: #fff; width: 100%; margin-top: 8px; }
+  .output { background: #05070a; padding: 12px; border-radius: 6px; border: 1px dashed #ff0055; color: #ff0055; font-size: 1.3rem; font-weight: bold; letter-spacing: 2px; word-break: break-all; min-height: 28px; }
+  canvas { background: #000; border-radius: 8px; border: 1px solid #333; max-width: 100%; margin-top: 10px; }
+  .slider-box { margin: 10px 0; font-size: 0.9rem; color: #00ffff; }
   input[type="range"] { width: 85%; accent-color: #00ff88; }
-  a.ide-link { display: inline-block; background: #ff0055; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; margin: 10px 0; }
-  .hint-box { background: #1a1f2e; border-left: 3px solid #ffff00; padding: 10px; margin-bottom: 10px; font-size: 0.85rem; color: #ffff00; }
 </style>
 </head>
 <body>
@@ -33,124 +25,21 @@
   <h1>⚡ CYBER FIBONACCI LAB</h1>
   <p class="sub">Sequenza: 1, 1, 2, 3, 5, 8, 13, 21...</p>
 
+  <!-- SEZIONE 1: CRITTOGRAFIA -->
   <div class="card">
-    <h2>💻 MISSIONE 1: CODICI PYTHON PER IL LAB</h2>
-    <div class="center">
-      <p style="font-size:0.9rem; color:#ccc;">1. Apri l'editor Python in una nuova scheda:<br>
-      <a class="ide-link" href="https://online-ide.com" target="_blank">🚀 APRI ONLINE-IDE TURTLE</a></p>
-    </div>
-
-    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 1: Radar Fibonacci (Modifica colori, spessore, gradi)</p>
-<pre id="box1">import turtle
-
-schermo = turtle.Screen()
-schermo.bgcolor("black")
-t = turtle.Turtle()
-t.speed(0)
-
-# --- MODIFICA QUI: COLORI, SPESSORE E GRADI ---
-colori = ["cyan", "magenta", "yellow", "lime"]
-spessore = 3      # Prova 1, 5 o 10
-gradi = 90        # Prova 91, 89, 120 o 60
-passi = 15
-# ----------------------------------------------
-
-a = 1
-b = 1
-for i in range(passi):
-    t.pencolor(colori[i % len(colori)])
-    t.pensize(spessore)
-    for _ in range(90):
-        t.forward(a * 0.04)
-        t.left(gradi / 90)
-    prossimo = a + b
-    a = b
-    b = prossimo
-turtle.done()</pre>
-    <button class="copy-btn" onclick="copiaBox('box1', this)">📋 COPIA CODICE 1 (RADAR)</button>
-
-    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 2: La Galassia Aurea (137.5°)</p>
-<pre id="box2">import turtle
-
-schermo = turtle.Screen()
-schermo.bgcolor("black")
-turtle.tracer(0)
-
-t = turtle.Turtle()
-t.hideturtle()
-t.penup()
-
-colori = ["#00FFCC", "#FF007F", "#FFFF00", "#00BFFF", "#7FFF00", "#FF8C00"]
-angolo_aureo = 137.508
-
-for i in range(450):
-    t.pencolor(colori[i % len(colori)])
-    t.dot(4 + (i * 0.015))
-    t.forward(i * 0.45)
-    t.left(angolo_aureo)
-
-turtle.update()
-turtle.done()</pre>
-    <button class="copy-btn" onclick="copiaBox('box2', this)">📋 COPIA CODICE 2 (GALASSIA)</button>
-
-    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 3: Cifratore Cyber (Sfida Finale)</p>
-    <div class="hint-box">
-      🕵️‍♂️ <strong>ENIGMA HACKER:</strong> Questo algoritmo spinge le lettere in avanti nel futuro per nasconderle. Riesci a trovare <strong>l'unico simbolo</strong> da sabotare nel codice per riavvolgere il tempo e decifrare i messaggi segreti?
-    </div>
-<pre id="box3">import turtle
-
-schermo = turtle.Screen()
-schermo.bgcolor("black")
-t = turtle.Turtle()
-t.speed(5)
-
-# --- MODIFICA QUI LA PAROLA SEGRETA ---
-messaggio = "MAMMA"
-# --------------------------------------
-
-alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-colori = ["#00FF00", "#00FFFF", "#FF0055", "#FFFF00"]
-a = 1
-b = 1
-testo_cifrato = ""
-
-for i in range(len(messaggio)):
-    lettera = messaggio[i]
-    if lettera in alfabeto:
-        posizione = alfabeto.index(lettera)
-        nuova_pos = (posizione + a) % 26
-        nuova_lettera = alfabeto[nuova_pos]
-    else:
-        nuova_lettera = lettera
-    testo_cifrato = testo_cifrato + nuova_lettera
-    t.pencolor(colori[i % 4])
-    t.pensize(3)
-    t.forward(a * 5)
-    t.left(a * 35)
-    prossimo = a + b
-    a = b
-    b = prossimo
-
-t.hideturtle()
-print("ORIGINALE: " + messaggio)
-print("CIFRATO:   " + testo_cifrato)</pre>
-    <button class="copy-btn" onclick="copiaBox('box3', this)">📋 COPIA CODICE 3 (HACKING)</button>
-  </div>
-
-  <div class="card center">
-    <h2>🔐 APP CIFRATORE SEGRETO (DA CASA)</h2>
-    <p id="modeLabel" style="font-size:0.85rem; color:#00ff88; margin-top:0;">Modalità attuale: 🔒 CIFRATURA (+)</p>
-    <input type="text" id="testo" placeholder="SCRIVI QUI IL MESSAGGIO..." oninput="elabora()">
+    <h2 style="margin-top:0; font-size:1.1rem; color:#00ffff;">🔐 Cifratore Segreto</h2>
+    <input type="text" id="testo" placeholder="SCRIVI QUI IL MESSAGGIO..." oninput="elabora(1)">
     <div class="btn-group">
-      <button id="btnCifra" class="active-mode" onclick="impostaModo(1)">🔒 CIFRA (+)</button>
-      <button id="btnDecifra" class="sec" onclick="impostaModo(-1)">🔓 DECIFRA (-)</button>
+      <button onclick="elabora(1)">🔒 CIFRA (+)</button>
+      <button class="sec" onclick="elabora(-1)">🔓 DECIFRA (-)</button>
     </div>
     <div class="output" id="risultato">...</div>
-    <button class="wa" id="btnWA" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
+    <button class="wa" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
   </div>
 
-  <div class="card center">
-    <h2>🌌 GENERATORE GALASSIA (DA CASA)</h2>
+  <!-- SEZIONE 2: GRAFICA AUREA -->
+  <div class="card">
+    <h2 style="margin-top:0; font-size:1.1rem; color:#00ffff;">🌌 Generatore Galassia</h2>
     <div class="slider-box">
       Angolo: <span id="valAngolo">137.5</span>°<br>
       <input type="range" id="angolo" min="60" max="180" step="0.1" value="137.5" oninput="disegna()">
@@ -164,93 +53,69 @@ print("CIFRATO:   " + testo_cifrato)</pre>
   </div>
 
 <script>
-  function copiaBox(idBox, btn) {
-    const testo = document.getElementById(idBox).textContent;
-    const areaTemp = document.createElement('textarea');
-    areaTemp.value = testo;
-    areaTemp.style.position = 'fixed';
-    areaTemp.style.left = '-9999px';
-    document.body.appendChild(areaTemp);
-    areaTemp.select();
-    areaTemp.setSelectionRange(0, 99999);
+  const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    let ok = false;
-    try {
-      ok = document.execCommand('copy');
-    } catch (e) {
-      ok = false;
-    }
-    document.body.removeChild(areaTemp);
-
-    if (!ok && navigator.clipboard) {
-      navigator.clipboard.writeText(testo);
-    }
-
-    const labelOrig = btn.textContent;
-    btn.textContent = '✅ COPIATO! ORA INCOLLA SU ONLINE-IDE';
-    btn.style.background = '#00ff88';
-    btn.style.color = '#0a0e14';
-    setTimeout(function() {
-      btn.textContent = labelOrig;
-      btn.style.background = '#1f6feb';
-      btn.style.color = '#fff';
-    }, 2500);
-  }
-
-  const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  let direzione = 1;
-
-  function impostaModo(dir) {
-    direzione = dir;
-    const label = document.getElementById('modeLabel');
-    const btnC = document.getElementById('btnCifra');
-    const btnD = document.getElementById('btnDecifra');
-
-    if (dir === 1) {
-      label.textContent = 'Modalità attuale: 🔒 CIFRATURA (+)';
-      label.style.color = '#00ff88';
-      btnC.classList.add('active-mode');
-      btnD.classList.remove('active-mode');
-    } else {
-      label.textContent = 'Modalità attuale: 🔓 DECIFRATURA (-)';
-      label.style.color = '#00ffff';
-      btnD.classList.add('active-mode');
-      btnC.classList.remove('active-mode');
-    }
-    elabora();
-  }
-
-  function elabora() {
-    const msg = document.getElementById('testo').value.toUpperCase();
-    let a = 1;
-    let b = 1;
-    let out = '';
-
+  function elabora(direzione) {
+    let msg = document.getElementById("testo").value.toUpperCase();
+    let a = 1, b = 1, out = "";
     for (let i = 0; i < msg.length; i++) {
-      const c = msg[i];
-      const pos = alfabeto.indexOf(c);
+      let c = msg[i];
+      let pos = alfabeto.indexOf(c);
       if (pos !== -1) {
         let nuovaPos = (pos + (direzione * a)) % 26;
-        if (nuovaPos < 0) {
-          nuovaPos += 26;
-        }
+        if (nuovaPos < 0) nuovaPos += 26;
         out += alfabeto[nuovaPos];
-        const prox = a + b;
-        a = b;
-        b = prox;
+        let prox = a + b; a = b; b = prox;
       } else {
         out += c;
       }
     }
-    document.getElementById('risultato').textContent = out || '...';
+    document.getElementById("risultato").innerText = out || "...";
   }
 
   function condividiWA() {
-    const res = document.getElementById('risultato').textContent;
-    if (res === '...' || res.trim() === '') {
-      alert('Scrivi prima un messaggio nella casella sopra!');
-      return;
-    }
-    const url = 'https://github.io';
-    const testoWA = '🕵️‍♂️ Ho cifrato un messaggio con Fibonacci all\'Open Day!\n\nCodice: *' + res + '*\n\nDecifralo qui: ' + url;
+    let res = document.getElementById("risultato").innerText;
+    if (res === "...") return;
+    let url = "https://github.io";
+    let testoWA = "🕵️‍♂️ Ho cifrato un messaggio con l'algoritmo di Fibonacci all'Open Day!\n\nCodice: *" + res + "*\n\nProva a decifrarlo qui: " + url;
+    window.open("https://wa.me" + encodeURIComponent(testoWA), "_blank");
+  }
 
+  function disegna() {
+    let canvas = document.getElementById("tela");
+    let ctx = canvas.getContext("2d");
+    let ang = parseFloat(document.getElementById("angolo").value);
+    let n = parseInt(document.getElementById("punti").value);
+    document.getElementById("valAngolo").innerText = ang;
+    document.getElementById("valPunti").innerText = n;
+
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let colori = ["#00FFCC", "#FF007F", "#FFFF00", "#00BFFF", "#7FFF00"];
+    let cx = canvas.width / 2, cy = canvas.height / 2;
+
+    for (let i = 0; i < n; i++) {
+      let r = i * 0.25;
+      let theta = i * ang * (Math.PI / 180);
+      let x = cx + r * Math.cos(theta);
+      let y = cy + r * Math.sin(theta);
+
+      ctx.beginPath();
+      ctx.arc(x, y, 2 + (i * 0.004), 0, 2 * Math.PI);
+      ctx.fillStyle = colori[i % colori.length];
+      ctx.fill();
+    }
+  }
+
+  function scaricaImg() {
+    let link = document.createElement('a');
+    link.download = 'galassia-fibonacci.png';
+    link.href = document.getElementById('tela').toDataURL();
+    link.click();
+  }
+
+  disegna();
+</script>
+</body>
+</html>

@@ -8,11 +8,11 @@
   body { background: #0a0e14; color: #00ff88; font-family: 'Courier New', monospace; margin: 0; padding: 15px; text-align: center; }
   h1 { font-size: 1.5rem; text-shadow: 0 0 10px #00ff88; margin-bottom: 5px; }
   p.sub { color: #8892b0; font-size: 0.9rem; margin-top: 0; }
-  .card { background: #111622; border: 1px solid #00ff88; border-radius: 10px; padding: 15px; margin: 15px auto; max-width: 600px; box-shadow: 0 0 15px rgba(0,255,136,0.12); text-align: left; }
+  .card { background: #111622; border: 1px solid #00ff88; border-radius: 10px; padding: 15px; margin: 15px auto; max-width: 620px; box-shadow: 0 0 15px rgba(0,255,136,0.12); text-align: left; }
   .card h2 { margin-top: 0; font-size: 1.15rem; color: #00ffff; text-align: center; }
-  pre { background: #05070a; color: #e6edf3; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; border: 1px solid #222; margin: 8px 0; }
+  pre { background: #05070a; color: #e6edf3; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; border: 1px solid #222; margin: 8px 0; white-space: pre; }
   button { background: #00ff88; color: #0a0e14; border: none; padding: 10px 15px; font-weight: bold; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.95rem; }
-  button.copy-btn { width: 100%; background: #1f6feb; color: #fff; margin-bottom: 15px; }
+  button.copy-btn { width: 100%; background: #1f6feb; color: #fff; margin-bottom: 18px; }
   button.copy-btn:active { background: #388bfd; }
   button.sec { background: #00ffff; color: #0a0e14; }
   button.active-mode { outline: 3px solid #ffffff; }
@@ -33,7 +33,6 @@
   <h1>⚡ CYBER FIBONACCI LAB</h1>
   <p class="sub">Sequenza: 1, 1, 2, 3, 5, 8, 13, 21...</p>
 
-  <!-- SEZIONE LABORATORIO PYTHON -->
   <div class="card">
     <h2>💻 MISSIONE 1: CODICI PYTHON PER IL LAB</h2>
     <div class="center">
@@ -42,7 +41,7 @@
     </div>
 
     <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 1: Radar Fibonacci (Modifica colori, spessore, gradi)</p>
-    <pre id="code1">import turtle
+<pre id="box1">import turtle
 
 schermo = turtle.Screen()
 schermo.bgcolor("black")
@@ -68,10 +67,10 @@ for i in range(passi):
     a = b
     b = prossimo
 turtle.done()</pre>
-    <button class="copy-btn" onclick="copiaCodice('code1', this)">📋 COPIA CODICE 1 (RADAR)</button>
+    <button class="copy-btn" onclick="copiaBox('box1', this)">📋 COPIA CODICE 1 (RADAR)</button>
 
     <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 2: La Galassia Aurea (137.5°)</p>
-    <pre id="code2">import turtle
+<pre id="box2">import turtle
 
 schermo = turtle.Screen()
 schermo.bgcolor("black")
@@ -92,13 +91,13 @@ for i in range(450):
 
 turtle.update()
 turtle.done()</pre>
-    <button class="copy-btn" onclick="copiaCodice('code2', this)">📋 COPIA CODICE 2 (GALASSIA)</button>
+    <button class="copy-btn" onclick="copiaBox('box2', this)">📋 COPIA CODICE 2 (GALASSIA)</button>
 
     <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 3: Cifratore Cyber (Sfida Finale)</p>
     <div class="hint-box">
       🕵️‍♂️ <strong>ENIGMA HACKER:</strong> Questo algoritmo spinge le lettere in avanti nel futuro per nasconderle. Riesci a trovare <strong>l'unico simbolo</strong> da sabotare nel codice per riavvolgere il tempo e decifrare i messaggi segreti?
     </div>
-    <pre id="code3">import turtle
+<pre id="box3">import turtle
 
 schermo = turtle.Screen()
 schermo.bgcolor("black")
@@ -135,10 +134,9 @@ for i in range(len(messaggio)):
 t.hideturtle()
 print("ORIGINALE: " + messaggio)
 print("CIFRATO:   " + testo_cifrato)</pre>
-    <button class="copy-btn" onclick="copiaCodice('code3', this)">📋 COPIA CODICE 3 (HACKING)</button>
+    <button class="copy-btn" onclick="copiaBox('box3', this)">📋 COPIA CODICE 3 (HACKING)</button>
   </div>
 
-  <!-- SEZIONE 2: CRITTOGRAFIA WEB -->
   <div class="card center">
     <h2>🔐 APP CIFRATORE SEGRETO (DA CASA)</h2>
     <p id="modeLabel" style="font-size:0.85rem; color:#00ff88; margin-top:0;">Modalità attuale: 🔒 CIFRATURA (+)</p>
@@ -151,7 +149,6 @@ print("CIFRATO:   " + testo_cifrato)</pre>
     <button class="wa" id="btnWA" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
   </div>
 
-  <!-- SEZIONE 3: GRAFICA AUREA WEB -->
   <div class="card center">
     <h2>🌌 GENERATORE GALASSIA (DA CASA)</h2>
     <div class="slider-box">
@@ -167,85 +164,93 @@ print("CIFRATO:   " + testo_cifrato)</pre>
   </div>
 
 <script>
-  // Copia compatibile con tutti i browser (anche senza HTTPS o con restrizioni)
-  function copiaCodice(idElemento, btn) {
-    let testo = document.getElementById(idElemento).textContent;
-    
-    let areaTemp = document.createElement("textarea");
+  function copiaBox(idBox, btn) {
+    const testo = document.getElementById(idBox).textContent;
+    const areaTemp = document.createElement('textarea');
     areaTemp.value = testo;
-    areaTemp.style.position = "fixed";
-    areaTemp.style.left = "-9999px";
+    areaTemp.style.position = 'fixed';
+    areaTemp.style.left = '-9999px';
     document.body.appendChild(areaTemp);
     areaTemp.select();
     areaTemp.setSelectionRange(0, 99999);
-    
+
+    let ok = false;
     try {
-      document.execCommand("copy");
-      confermaCopia(btn);
-    } catch (err) {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(testo).then(() => confermaCopia(btn));
-      }
+      ok = document.execCommand('copy');
+    } catch (e) {
+      ok = false;
     }
     document.body.removeChild(areaTemp);
-  }
 
-  function confermaCopia(btn) {
-    let testoOriginale = btn.innerText;
-    btn.innerText = "✅ COPIATO! ORA INCOLLA SU ONLINE-IDE";
-    btn.style.background = "#00ff88";
-    btn.style.color = "#0a0e14";
-    setTimeout(() => {
-      btn.innerText = testoOriginale;
-      btn.style.background = "#1f6feb";
-      btn.style.color = "#fff";
+    if (!ok && navigator.clipboard) {
+      navigator.clipboard.writeText(testo);
+    }
+
+    const labelOrig = btn.textContent;
+    btn.textContent = '✅ COPIATO! ORA INCOLLA SU ONLINE-IDE';
+    btn.style.background = '#00ff88';
+    btn.style.color = '#0a0e14';
+    setTimeout(function() {
+      btn.textContent = labelOrig;
+      btn.style.background = '#1f6feb';
+      btn.style.color = '#fff';
     }, 2500);
   }
 
-  const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  let direzioneCorrente = 1;
+  const alfabeto = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let direzione = 1;
 
   function impostaModo(dir) {
-    direzioneCorrente = dir;
-    let label = document.getElementById("modeLabel");
-    let btnC = document.getElementById("btnCifra");
-    let btnD = document.getElementById("btnDecifra");
+    direzione = dir;
+    const label = document.getElementById('modeLabel');
+    const btnC = document.getElementById('btnCifra');
+    const btnD = document.getElementById('btnDecifra');
 
     if (dir === 1) {
-      label.innerText = "Modalità attuale: 🔒 CIFRATURA (+)";
-      label.style.color = "#00ff88";
-      btnC.classList.add("active-mode");
-      btnD.classList.remove("active-mode");
+      label.textContent = 'Modalità attuale: 🔒 CIFRATURA (+)';
+      label.style.color = '#00ff88';
+      btnC.classList.add('active-mode');
+      btnD.classList.remove('active-mode');
     } else {
-      label.innerText = "Modalità attuale: 🔓 DECIFRATURA (-)";
-      label.style.color = "#00ffff";
-      btnD.classList.add("active-mode");
-      btnC.classList.remove("active-mode");
+      label.textContent = 'Modalità attuale: 🔓 DECIFRATURA (-)';
+      label.style.color = '#00ffff';
+      btnD.classList.add('active-mode');
+      btnC.classList.remove('active-mode');
     }
     elabora();
   }
 
   function elabora() {
-    let msg = document.getElementById("testo").value.toUpperCase();
-    let a = 1, b = 1, out = "";
+    const msg = document.getElementById('testo').value.toUpperCase();
+    let a = 1;
+    let b = 1;
+    let out = '';
+
     for (let i = 0; i < msg.length; i++) {
-      let c = msg[i];
-      let pos = alfabeto.indexOf(c);
+      const c = msg[i];
+      const pos = alfabeto.indexOf(c);
       if (pos !== -1) {
-        let nuovaPos = (pos + (direzioneCorrente * a)) % 26;
-        if (nuovaPos < 0) nuovaPos += 26;
+        let nuovaPos = (pos + (direzione * a)) % 26;
+        if (nuovaPos < 0) {
+          nuovaPos += 26;
+        }
         out += alfabeto[nuovaPos];
-        let prox = a + b; a = b; b = prox;
+        const prox = a + b;
+        a = b;
+        b = prox;
       } else {
         out += c;
       }
     }
-    document.getElementById("risultato").innerText = out || "...";
+    document.getElementById('risultato').textContent = out || '...';
   }
 
   function condividiWA() {
-    let res = document.getElementById("risultato").innerText;
-    if (res === "..." || res.trim() === "") {
-      alert("Scrivi prima un messaggio nella casella sopra!");
+    const res = document.getElementById('risultato').textContent;
+    if (res === '...' || res.trim() === '') {
+      alert('Scrivi prima un messaggio nella casella sopra!');
       return;
     }
+    const url = 'https://github.io';
+    const testoWA = '🕵️‍♂️ Ho cifrato un messaggio con Fibonacci all\'Open Day!\n\nCodice: *' + res + '*\n\nDecifralo qui: ' + url;
+

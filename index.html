@@ -24,6 +24,7 @@
   .slider-box { margin: 10px 0; font-size: 0.9rem; color: #00ffff; text-align: center; }
   input[type="range"] { width: 85%; accent-color: #00ff88; }
   a.ide-link { display: inline-block; background: #ff0055; color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; margin: 10px 0; }
+  .hint-box { background: #1a1f2e; border-left: 3px solid #ffff00; padding: 10px; margin-bottom: 10px; font-size: 0.85rem; color: #ffff00; }
 </style>
 </head>
 <body>
@@ -36,7 +37,7 @@
     <h2>💻 MISSIONE 1: CODICI PYTHON PER IL LAB</h2>
     <div class="center">
       <p style="font-size:0.9rem; color:#ccc;">1. Apri l'editor Python in una nuova scheda:<br>
-      <a class="ide-link" href="https://online-ide.com/turtle" target="_blank">🚀 APRI ONLINE-IDE TURTLE</a></p>
+      <a class="ide-link" href="https://online-ide.com" target="_blank">🚀 APRI ONLINE-IDE TURTLE</a></p>
     </div>
 
     <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 1: Radar Fibonacci (Modifica colori, spessore, gradi)</p>
@@ -92,7 +93,10 @@ turtle.update()
 turtle.done()</pre>
     <button class="copy-btn" onclick="copiaCodice('code2', this)">📋 COPIA CODICE 2 (GALASSIA)</button>
 
-    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 3: Cifratore Cyber (Cambia + in - per decifrare!)</p>
+    <p style="color:#00ff88; font-weight:bold; margin-bottom:4px;">Step 3: Cifratore Cyber (Sfida Finale)</p>
+    <div class="hint-box">
+      🕵️‍♂️ <strong>ENIGMA HACKER:</strong> Questo algoritmo spinge le lettere in avanti nel futuro per nasconderle. Riesci a trovare <strong>l'unico simbolo</strong> da sabotare nel codice per riavvolgere il tempo e decifrare i messaggi segreti?
+    </div>
     <pre id="code3">import turtle
 
 schermo = turtle.Screen()
@@ -142,7 +146,7 @@ print("CIFRATO:   " + testo_cifrato)</pre>
       <button class="sec" onclick="elabora(-1)">🔓 DECIFRA (-)</button>
     </div>
     <div class="output" id="risultato">...</div>
-    <button class="wa" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
+    <button class="wa" id="btnWA" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
   </div>
 
   <!-- SEZIONE 3: GRAFICA AUREA WEB -->
@@ -198,10 +202,27 @@ print("CIFRATO:   " + testo_cifrato)</pre>
 
   function condividiWA() {
     let res = document.getElementById("risultato").innerText;
-    if (res === "...") return;
-    let url = window.location.href;
-    let testoWA = `🕵️‍♂️ Ho cifrato un messaggio con l'algoritmo di Fibonacci all'Open Day!\n\nCodice: *${res}*\n\nProva a decifrarlo qui: ${url}`;
-    window.open("https://whatsapp.com" + encodeURIComponent(testoWA), "_blank");
+    if (res === "..." || res.trim() === "") {
+      alert("Scrivi prima un messaggio nella casella sopra!");
+      return;
+    }
+    let url = "https://github.io";
+    let testoWA = "🕵️‍♂️ Ho cifrato un messaggio con l'algoritmo di Fibonacci all'Open Day!\n\nCodice: *" + res + "*\n\nProva a decifrarlo qui: " + url;
+    
+    // Copia anche negli appunti per sicurezza se si usa da PC
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(testoWA);
+    }
+
+    // Usa il link ufficiale wa.me
+    let waLink = "https://wa.me" + encodeURIComponent(testoWA);
+    window.open(waLink, "_blank");
+
+    let btn = document.getElementById("btnWA");
+    btn.innerText = "✅ Aperto WhatsApp (e copiato negli appunti!)";
+    setTimeout(() => {
+      btn.innerText = "📲 Invia codice su WhatsApp";
+    }, 3000);
   }
 
   function disegna() {
@@ -225,20 +246,3 @@ print("CIFRATO:   " + testo_cifrato)</pre>
       let y = cy + r * Math.sin(theta);
 
       ctx.beginPath();
-      ctx.arc(x, y, 2 + (i * 0.004), 0, 2 * Math.PI);
-      ctx.fillStyle = colori[i % colori.length];
-      ctx.fill();
-    }
-  }
-
-  function scaricaImg() {
-    let link = document.createElement('a');
-    link.download = 'galassia-fibonacci.png';
-    link.href = document.getElementById('tela').toDataURL();
-    link.click();
-  }
-
-  disegna();
-</script>
-</body>
-</html>

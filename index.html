@@ -14,7 +14,8 @@
   button { background: #00ff88; color: #0a0e14; border: none; padding: 10px 15px; font-weight: bold; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 0.95rem; }
   button.copy-btn { width: 100%; background: #1f6feb; color: #fff; margin-bottom: 15px; }
   button.copy-btn:active { background: #388bfd; }
-  button.sec { background: #00ffff; }
+  button.sec { background: #00ffff; color: #0a0e14; }
+  button.active-mode { outline: 3px solid #ffffff; }
   button.wa { background: #25D366; color: #fff; width: 100%; margin-top: 8px; }
   .center { text-align: center; }
   input[type="text"] { width: 90%; padding: 12px; background: #0a0e14; border: 1px solid #00ffff; color: #fff; font-size: 1.1rem; border-radius: 6px; text-transform: uppercase; text-align: center; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
@@ -140,10 +141,11 @@ print("CIFRATO:   " + testo_cifrato)</pre>
   <!-- SEZIONE 2: CRITTOGRAFIA WEB -->
   <div class="card center">
     <h2>🔐 APP CIFRATORE SEGRETO (DA CASA)</h2>
-    <input type="text" id="testo" placeholder="SCRIVI QUI IL MESSAGGIO..." oninput="elabora(1)">
+    <p id="modeLabel" style="font-size:0.85rem; color:#00ff88; margin-top:0;">Modalità attuale: 🔒 CIFRATURA (+)</p>
+    <input type="text" id="testo" placeholder="SCRIVI QUI IL MESSAGGIO..." oninput="elabora()">
     <div class="btn-group">
-      <button onclick="elabora(1)">🔒 CIFRA (+)</button>
-      <button class="sec" onclick="elabora(-1)">🔓 DECIFRA (-)</button>
+      <button id="btnCifra" class="active-mode" onclick="impostaModo(1)">🔒 CIFRA (+)</button>
+      <button id="btnDecifra" class="sec" onclick="impostaModo(-1)">🔓 DECIFRA (-)</button>
     </div>
     <div class="output" id="risultato">...</div>
     <button class="wa" id="btnWA" onclick="condividiWA()">📲 Invia codice su WhatsApp</button>
@@ -165,31 +167,72 @@ print("CIFRATO:   " + testo_cifrato)</pre>
   </div>
 
 <script>
+  // Copia compatibile con tutti i browser (anche senza HTTPS o con restrizioni)
   function copiaCodice(idElemento, btn) {
-    let testo = document.getElementById(idElemento).innerText;
-    navigator.clipboard.writeText(testo).then(() => {
-      let testoOriginale = btn.innerText;
-      btn.innerText = "✅ COPIATO! ORA INCOLLA SU ONLINE-IDE";
-      btn.style.background = "#00ff88";
-      btn.style.color = "#0a0e14";
-      setTimeout(() => {
-        btn.innerText = testoOriginale;
-        btn.style.background = "#1f6feb";
-        btn.style.color = "#fff";
-      }, 2500);
-    });
+    let testo = document.getElementById(idElemento).textContent;
+    
+    let areaTemp = document.createElement("textarea");
+    areaTemp.value = testo;
+    areaTemp.style.position = "fixed";
+    areaTemp.style.left = "-9999px";
+    document.body.appendChild(areaTemp);
+    areaTemp.select();
+    areaTemp.setSelectionRange(0, 99999);
+    
+    try {
+      document.execCommand("copy");
+      confermaCopia(btn);
+    } catch (err) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(testo).then(() => confermaCopia(btn));
+      }
+    }
+    document.body.removeChild(areaTemp);
+  }
+
+  function confermaCopia(btn) {
+    let testoOriginale = btn.innerText;
+    btn.innerText = "✅ COPIATO! ORA INCOLLA SU ONLINE-IDE";
+    btn.style.background = "#00ff88";
+    btn.style.color = "#0a0e14";
+    setTimeout(() => {
+      btn.innerText = testoOriginale;
+      btn.style.background = "#1f6feb";
+      btn.style.color = "#fff";
+    }, 2500);
   }
 
   const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let direzioneCorrente = 1;
 
-  function elabora(direzione) {
+  function impostaModo(dir) {
+    direzioneCorrente = dir;
+    let label = document.getElementById("modeLabel");
+    let btnC = document.getElementById("btnCifra");
+    let btnD = document.getElementById("btnDecifra");
+
+    if (dir === 1) {
+      label.innerText = "Modalità attuale: 🔒 CIFRATURA (+)";
+      label.style.color = "#00ff88";
+      btnC.classList.add("active-mode");
+      btnD.classList.remove("active-mode");
+    } else {
+      label.innerText = "Modalità attuale: 🔓 DECIFRATURA (-)";
+      label.style.color = "#00ffff";
+      btnD.classList.add("active-mode");
+      btnC.classList.remove("active-mode");
+    }
+    elabora();
+  }
+
+  function elabora() {
     let msg = document.getElementById("testo").value.toUpperCase();
     let a = 1, b = 1, out = "";
     for (let i = 0; i < msg.length; i++) {
       let c = msg[i];
       let pos = alfabeto.indexOf(c);
       if (pos !== -1) {
-        let nuovaPos = (pos + (direzione * a)) % 26;
+        let nuovaPos = (pos + (direzioneCorrente * a)) % 26;
         if (nuovaPos < 0) nuovaPos += 26;
         out += alfabeto[nuovaPos];
         let prox = a + b; a = b; b = prox;
@@ -206,43 +249,3 @@ print("CIFRATO:   " + testo_cifrato)</pre>
       alert("Scrivi prima un messaggio nella casella sopra!");
       return;
     }
-    let url = "https://github.io";
-    let testoWA = "🕵️‍♂️ Ho cifrato un messaggio con l'algoritmo di Fibonacci all'Open Day!\n\nCodice: *" + res + "*\n\nProva a decifrarlo qui: " + url;
-    
-    // Copia anche negli appunti per sicurezza se si usa da PC
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(testoWA);
-    }
-
-    // Usa il link ufficiale wa.me
-    let waLink = "https://wa.me" + encodeURIComponent(testoWA);
-    window.open(waLink, "_blank");
-
-    let btn = document.getElementById("btnWA");
-    btn.innerText = "✅ Aperto WhatsApp (e copiato negli appunti!)";
-    setTimeout(() => {
-      btn.innerText = "📲 Invia codice su WhatsApp";
-    }, 3000);
-  }
-
-  function disegna() {
-    let canvas = document.getElementById("tela");
-    let ctx = canvas.getContext("2d");
-    let ang = parseFloat(document.getElementById("angolo").value);
-    let n = parseInt(document.getElementById("punti").value);
-    document.getElementById("valAngolo").innerText = ang;
-    document.getElementById("valPunti").innerText = n;
-
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    let colori = ["#00FFCC", "#FF007F", "#FFFF00", "#00BFFF", "#7FFF00"];
-    let cx = canvas.width / 2, cy = canvas.height / 2;
-
-    for (let i = 0; i < n; i++) {
-      let r = i * 0.25;
-      let theta = i * ang * (Math.PI / 180);
-      let x = cx + r * Math.cos(theta);
-      let y = cy + r * Math.sin(theta);
-
-      ctx.beginPath();
